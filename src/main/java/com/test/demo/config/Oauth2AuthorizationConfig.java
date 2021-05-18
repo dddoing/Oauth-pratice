@@ -13,10 +13,10 @@ public class Oauth2AuthorizationConfig extends AuthorizationServerConfigurerAdap
         //
         clients.inMemory()
                 .withClient("testClientId")
-                .secret("testSecret")
+                .secret("{noop}testSecret")
                 .redirectUris("http://localhost:8081/oauth2/callback")
-                .authorizedGrantTypes("authorizationCode")
+                .authorizedGrantTypes("authorization_code")
                 .scopes("read","write")
-                .accessTokenValiditySeconds(3000);
+                .accessTokenValiditySeconds(30000);
     }
 }

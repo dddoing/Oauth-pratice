@@ -29,7 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //        auth.authenticationProvider(authenticationProvider);
         auth.inMemoryAuthentication()
                 .withUser("user")
-                .password("pass")
+                .password("{noop}pass")
                 .roles("USER");
     }
 
