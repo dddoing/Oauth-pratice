@@ -15,13 +15,13 @@ import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenCo
 
 import javax.sql.DataSource;
 
+@RequiredArgsConstructor
 @Configuration
 @EnableAuthorizationServer
-@RequiredArgsConstructor
 public class Oauth2AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
 
-    private PasswordEncoder passwordEncoder;
-    private DataSource dataSource;
+    private final PasswordEncoder passwordEncoder;
+    private final DataSource dataSource;
     private final CustomUserDetailService userDetailService;
 
     @Value("${security.oauth2.jwt.signkey}")
@@ -51,10 +51,9 @@ public class Oauth2AuthorizationConfig extends AuthorizationServerConfigurerAdap
     @Bean
     public JwtAccessTokenConverter jwtAccessTokenConverter() {
         //
-        return new JwtAccessTokenConverter();
-//        JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-//        converter.setSigningKey(signKey);
-//        return converter;
+        JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
+        converter.setSigningKey(signKey);
+        return converter;
     }
 
 }
