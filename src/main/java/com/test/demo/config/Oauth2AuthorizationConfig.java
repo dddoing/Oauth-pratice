@@ -25,9 +25,7 @@ public class Oauth2AuthorizationConfig extends AuthorizationServerConfigurerAdap
     private final PasswordEncoder passwordEncoder;
     private final DataSource dataSource;
     private final CustomUserDetailService userDetailService;
-
-    @Value("${security.oauth2.jwt.signkey}")
-    private String signKey;
+    private final ServiceConfig serviceConfig;
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) {
@@ -39,7 +37,15 @@ public class Oauth2AuthorizationConfig extends AuthorizationServerConfigurerAdap
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         //
-        clients.jdbc(dataSource).passwordEncoder(passwordEncoder);
+//        clients.jdbc(dataSource).passwordEncoder(passwordEncoder);
+        clients.inMemory()
+                .withClient(serviceConfig.getClient().getId())
+                .secret(passwordEncoder.encode(serviceConfig.getClient().getSecret()))
+                .authorizedGrantTypes(serviceConfig.getGrantTypes().toArray(new String[0]))
+                .scopes(serviceConfig.getClient().getScope())
+                .accessTokenValiditySeconds(30)
+                .refreshTokenValiditySeconds(3000)
+                .redirectUris(serviceConfig.getRedirectUrl());
     }
 
     @Override
@@ -55,7 +61,7 @@ public class Oauth2AuthorizationConfig extends AuthorizationServerConfigurerAdap
     public JwtAccessTokenConverter jwtAccessTokenConverter() {
         //
         JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-        converter.setSigningKey(signKey);
+        converter.setSigningKey(serviceConfig.getJwtSigningKey());
         return converter;
     }
 

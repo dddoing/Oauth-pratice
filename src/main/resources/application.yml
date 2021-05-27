@@ -19,3 +19,13 @@ security:
   oauth2:
     jwt:
       signkey: 123@#$
+
+oauth2-config:
+  client:
+    id: testClientId
+    secret: testSecret
+    scope: read
+  grant-types:
+    - authorization_code
+    - refresh_token
+  redirect_url: "http://localhost:8081/oauth2/callback"
