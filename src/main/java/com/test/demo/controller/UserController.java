@@ -14,12 +14,16 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping(value = "/v1")
-@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class UserController {
     //
     private final UserJpaRepo userJpaRepo;
 
-    @PreAuthorize("#oauth2.hasScope('write')")
+    @PreAuthorize("#oauth2.hasScope('read')")
     @GetMapping(value = "/users")
-    public List<User> findAllUser() {return userJpaRepo.findAll();}
+    public List<User> findAllUser() {
+        //
+        List<User> list = userJpaRepo.findAll();
+        System.out.println(list);
+        return list;
+    }
 }
