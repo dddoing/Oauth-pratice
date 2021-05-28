@@ -3,6 +3,7 @@ package com.test.demo.config;
 import com.test.demo.entity.User;
 import com.test.demo.repo.UserJpaRepo;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -12,8 +13,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.security.authentication.AuthenticationProvider;
 
+import java.util.logging.Logger;
+
 @RequiredArgsConstructor
 @Component
+@Slf4j
 public class CustomAuthenticationProvider implements AuthenticationProvider{
 
     private final PasswordEncoder passwordEncoder;
@@ -25,6 +29,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider{
         String name = authentication.getName();
         String password = authentication.getCredentials().toString();
 
+        log.info("=========== {}",authentication);
         User user = userJpaRepo.findByUid(name).orElseThrow(()->new UsernameNotFoundException("user is not exists"));
 
         if (!passwordEncoder.matches(password,user.getPassword())) {
