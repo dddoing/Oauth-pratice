@@ -24,7 +24,7 @@ oauth2-config:
   client:
     id: testClientId
     secret: testSecret
-    scope: read
+    scope: read,write
   grant-types:
     - authorization_code
     - refresh_token
