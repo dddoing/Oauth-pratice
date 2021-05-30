@@ -23,7 +23,6 @@ public class UserController {
     public List<User> findAllUser() {
         //
         List<User> list = userJpaRepo.findAll();
-        System.out.println(list);
         return list;
     }
 }
