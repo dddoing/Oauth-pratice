@@ -13,8 +13,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.security.authentication.AuthenticationProvider;
 
-import java.util.logging.Logger;
-
 @RequiredArgsConstructor
 @Component
 @Slf4j

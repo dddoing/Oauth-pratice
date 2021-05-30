@@ -33,7 +33,6 @@ public class Oauth2AuthorizationConfig extends AuthorizationServerConfigurerAdap
     private final DataSource dataSource;
     private final CustomUserDetailService userDetailService;
     private final ServiceConfig serviceConfig;
-//    private final JWTTokenEnhancer jwtTokenEnhancer;
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) {
@@ -65,7 +64,6 @@ public class Oauth2AuthorizationConfig extends AuthorizationServerConfigurerAdap
         super.configure(endpoints);
         endpoints.accessTokenConverter(jwtAccessTokenConverter())
                 .userDetailsService(userDetailService).tokenEnhancer(tokenEnhancerChain);
-//                .approvalStore(approvalStore());
     }
 
     @Bean

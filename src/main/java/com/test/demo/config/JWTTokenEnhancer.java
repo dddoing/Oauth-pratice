@@ -15,13 +15,9 @@ public class JWTTokenEnhancer implements TokenEnhancer {
     @Override
     public OAuth2AccessToken enhance(OAuth2AccessToken accessToken, OAuth2Authentication authentication) {
         //
-//        LoginUserDetails loginUserDetails = (LoginUserDetails) authentication.getUserAuthentication().getPrincipal();
-//        LoginUser loginUser = loginUserDetails.getLoginUser();
-//
         Map<String, Object> additionalInfo = new HashMap<>();
         additionalInfo.put("iss", "isss");
         additionalInfo.put("aud", "aud");
-//
 
         ((DefaultOAuth2AccessToken) accessToken).setAdditionalInformation(additionalInfo);
         log.info("{}",accessToken);
